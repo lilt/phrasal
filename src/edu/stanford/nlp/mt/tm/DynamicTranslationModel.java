@@ -69,7 +69,7 @@ public class DynamicTranslationModel<FV> implements TranslationModel<IString,FV>
   public static final int DEFAULT_MAX_PHRASE_LEN = 12;
   private static final int RULE_CACHE_THRESHOLD = 10000;
   private static final double MIN_LEX_PROB = 1e-5;
-  private static final int MAX_FERTILITY = 5;
+  private static final int MAX_FERTILITY = 300;
   
   /**
    * Parallelize TM queries. 
@@ -723,6 +723,7 @@ public class DynamicTranslationModel<FV> implements TranslationModel<IString,FV>
       // Generate rules for this span
       final Sequence<IString> sourceSpan = source.subsequence(i, j);
       final CoverageSet sourceCoverage = new CoverageSet(source.size());
+      System.out.println(sourceCoverage);
       sourceCoverage.set(i, j);
       List<Rule<IString>> rules = ruleCache == null ? null : ruleCache.get(sourceSpan);
       if (rules == null) {
@@ -1099,10 +1100,10 @@ public class DynamicTranslationModel<FV> implements TranslationModel<IString,FV>
     private final int hashCode;
     public AlignmentTemplate(SampledRule rule) {
       this.rule = rule;
-      int[] e2fPrimitive = (int[]) org.apache.commons.lang3.ArrayUtils.toPrimitive(rule.e2fAll());
-      int[] f2ePrimitive = (int[]) org.apache.commons.lang3.ArrayUtils.toPrimitive(rule.f2eAll());
-      this.hashCode = MurmurHash2.hash32(e2fPrimitive, rule.sourceLength(), 1) ^
-          MurmurHash2.hash32(f2ePrimitive, rule.targetLength(), 1);
+      String e2fString = String.join(",", org.apache.commons.lang3.ArrayUtils.toStringArray(rule.e2fAll()));
+      String f2eString = String.join(",", org.apache.commons.lang3.ArrayUtils.toStringArray(rule.f2eAll()));
+      this.hashCode = MurmurHash2.hash32(e2fString, rule.sourceLength(), 1) ^
+          MurmurHash2.hash32(f2eString, rule.targetLength(), 1);
     }
     @Override
     public String toString() { return rule.toString(); }

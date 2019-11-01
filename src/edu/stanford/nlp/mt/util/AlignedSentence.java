@@ -18,7 +18,7 @@ public class AlignedSentence implements Serializable {
   // 256-1, since 0 is used to indicate a null alignment in the compact
   // representation.
   public static final int MAX_SENTENCE_LENGTH = 256 - 1;
-  public static final int MAX_FERTILITY = 4;
+  public static final int MAX_FERTILITY = 300;
   
   public int[] source;
   public int[] target;

@@ -222,15 +222,17 @@ public class ParallelSuffixArray implements Serializable,KryoSerializable {
           logger.info("Discarding parallel example {}", fReader.getLineNumber());
         } else {
           System.arraycopy(sentence.source, 0, srcBitext, srcOffset, sentence.sourceLength());
-          System.arraycopy(sentence.f2e, 0, f2e, srcOffset, sentence.f2e.length);
+//          System.arraycopy(sentence.f2e, 0, f2e, srcOffset, sentence.f2e.length);
           System.arraycopy(sentence.target, 0, tgtBitext, tgtOffset, sentence.targetLength());
-          System.arraycopy(sentence.e2f, 0, e2f, tgtOffset, sentence.e2f.length);
+//          System.arraycopy(sentence.e2f, 0, e2f, tgtOffset, sentence.e2f.length);
           srcOffset += sentence.sourceLength();
           tgtOffset += sentence.targetLength();
           // Source points to target
           srcBitext[srcOffset] = toSentenceOffset(tgtOffset);
           // Target points to source
           tgtBitext[tgtOffset] = toSentenceOffset(srcOffset);
+          f2e = sentence.f2e;
+          e2f = sentence.e2f;
           ++srcOffset;
           ++tgtOffset;
         }        
@@ -751,7 +753,9 @@ public class ParallelSuffixArray implements Serializable,KryoSerializable {
       SentencePair sp = new SentencePair(srcSuffixArray[i]);
       if(!exactMatch || sp.sourceLength() == sourceQuery.length) samples.add(sp);
     }
-    return new SuffixArraySample(samples, lb, ub);
+    SuffixArraySample sample = new SuffixArraySample(samples, lb, ub);
+    System.out.println(sample.toString());
+    return sample;
   }
   
   /**

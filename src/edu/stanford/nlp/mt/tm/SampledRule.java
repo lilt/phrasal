@@ -121,20 +121,19 @@ public class SampledRule {
    * 
    * @return
    */
-  public int[][] e2f() {
+  public Set<Integer>[] e2f() {
     int eDim = tgtEndExclusive - tgtStartInclusive;
-    int[][] e2f = new int[eDim][];
+    Set<Integer>[] e2f = new TreeSet[eDim];
     for (int i = tgtStartInclusive; i < tgtEndExclusive; ++i) {
       int localIdx = i - tgtStartInclusive;
       Set<Integer> e2fI = sentencePair.e2f(i);
       int srcAlignDim = e2fI.size();
-      e2f[localIdx] = new int[srcAlignDim];
-      if (srcAlignDim > 0) {
-        System.arraycopy(e2fI, 0, e2f[localIdx], 0, srcAlignDim);
-        for (int j = 0; j < srcAlignDim; ++j) {
-          e2f[localIdx][j] -= srcStartInclusive;
-        }
-      }
+      e2f[localIdx] = e2fI;
+//      if (srcAlignDim > 0) {
+//        for (int j = 0; j < srcAlignDim; ++j) {
+//          e2f[localIdx][j] -= srcStartInclusive;
+//        }
+//      }
     }
     return e2f;
   }
