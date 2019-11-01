@@ -1,9 +1,12 @@
 package edu.stanford.nlp.mt.tm;
 
 import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
 
 import edu.stanford.nlp.mt.util.MurmurHash2;
 import edu.stanford.nlp.mt.util.ParallelSuffixArray.SentencePair;
+import sun.reflect.generics.tree.Tree;
 
 /**
  * A rule sampled from the bitext.
@@ -109,7 +112,7 @@ public class SampledRule {
    * 
    * @return
    */
-  public int[] e2fAll() {
+  public Set<Integer>[] e2fAll() {
     return sentencePair.e2f(tgtStartInclusive, tgtEndExclusive);
   }
   
@@ -123,8 +126,8 @@ public class SampledRule {
     int[][] e2f = new int[eDim][];
     for (int i = tgtStartInclusive; i < tgtEndExclusive; ++i) {
       int localIdx = i - tgtStartInclusive;
-      int[] e2fI = sentencePair.e2f(i);
-      int srcAlignDim = e2fI.length;
+      Set<Integer> e2fI = sentencePair.e2f(i);
+      int srcAlignDim = e2fI.size();
       e2f[localIdx] = new int[srcAlignDim];
       if (srcAlignDim > 0) {
         System.arraycopy(e2fI, 0, e2f[localIdx], 0, srcAlignDim);
@@ -141,7 +144,7 @@ public class SampledRule {
    * 
    * @return
    */
-  public int[] f2eAll() {
+  public Set<Integer>[] f2eAll() {
     return sentencePair.f2e(srcStartInclusive, srcEndExclusive);
   }
   
@@ -155,8 +158,8 @@ public class SampledRule {
     int[][] f2e = new int[fDim][];
     for (int i = srcStartInclusive; i < srcEndExclusive; ++i) {
       int localIdx = i - srcStartInclusive;
-      int[] f2eI = sentencePair.f2e(i);
-      int tgtAlignDim = f2eI.length;
+      Set<Integer> f2eI = sentencePair.f2e(i);
+      int tgtAlignDim = f2eI.size();
       f2e[localIdx] = new int[tgtAlignDim];
       if (tgtAlignDim > 0) {
         System.arraycopy(f2eI, 0, f2e[localIdx], 0, f2e[localIdx].length);
@@ -174,10 +177,10 @@ public class SampledRule {
    * @param i
    * @return
    */
-  public int[] f2e(int i) {
+  public Set<Integer> f2e(int i) {
     int srcIndex = srcStartInclusive + i;
     if (srcIndex < 0 || srcIndex >= srcEndExclusive) throw new ArrayIndexOutOfBoundsException();
-    return sentencePair.isSourceUnaligned(srcIndex) ? new int[0] : sentencePair.f2e(srcIndex);
+    return sentencePair.isSourceUnaligned(srcIndex) ? new TreeSet<>() : sentencePair.f2e(srcIndex);
   }
 
   /**
@@ -186,9 +189,9 @@ public class SampledRule {
    * @param i
    * @return
    */
-  public int[] e2f(int i) {
+  public Set<Integer> e2f(int i) {
     int tgtIndex = tgtStartInclusive + i;
     if (tgtIndex < 0 || tgtIndex >= tgtEndExclusive) throw new ArrayIndexOutOfBoundsException();
-    return sentencePair.isTargetUnaligned(tgtIndex) ? new int[0] : sentencePair.e2f(tgtIndex);
+    return sentencePair.isTargetUnaligned(tgtIndex) ? new TreeSet<>() : sentencePair.e2f(tgtIndex);
   }
 }
