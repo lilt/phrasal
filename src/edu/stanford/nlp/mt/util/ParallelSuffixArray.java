@@ -266,13 +266,9 @@ public class ParallelSuffixArray implements Serializable,KryoSerializable {
     int tgtOffset = 0;
     for (AlignedSentence sentence : corpus) {
       System.arraycopy(sentence.source, 0, srcBitext, srcOffset, sentence.sourceLength());
-//      System.arraycopy(sentence.f2e, 0, f2e, srcOffset, sentence.f2e.length);
+      System.arraycopy(sentence.f2e, 0, f2e, srcOffset, sentence.f2e.length);
       System.arraycopy(sentence.target, 0, tgtBitext, tgtOffset, sentence.targetLength());
-//      System.arraycopy(sentence.e2f, 0, e2f, tgtOffset, sentence.e2f.length);
-      srcOffset += sentence.sourceLength();
-      tgtOffset += sentence.targetLength();
-      f2e = sentence.f2e;
-      e2f = sentence.e2f;
+      System.arraycopy(sentence.e2f, 0, e2f, tgtOffset, sentence.e2f.length);
       // Source points to target
       srcBitext[srcOffset] = toSentenceOffset(tgtOffset);
       // Target points to source
