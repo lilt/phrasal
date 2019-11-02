@@ -45,7 +45,7 @@ public class PhraseAlignment {
         if (!els[i].equals("()")) {
           String[] els2 = els[i].split(",");
           t2s[i] = new TreeSet<>();
-          for (int j = 0; j < t2s[i].size(); ++j) {
+          for (int j = 0; j < els2.length; ++j) {
             // System.err.printf("(%d): %s\n",j,els2[j]);
             String num = els2[j].replaceAll("[()]", "");
             t2s[i].add(Integer.parseInt(num));
@@ -141,6 +141,9 @@ public class PhraseAlignment {
   }
 
   public int alignmentMean(Set<Integer> alignment) {
+    if (alignment.size() == 0){
+      return 0;
+    }
     int sum = alignment.stream().reduce(0, Integer::sum);
     return sum/alignment.size();
   }
