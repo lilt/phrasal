@@ -751,9 +751,7 @@ public class ParallelSuffixArray implements Serializable,KryoSerializable {
       SentencePair sp = new SentencePair(srcSuffixArray[i]);
       if(!exactMatch || sp.sourceLength() == sourceQuery.length) samples.add(sp);
     }
-    SuffixArraySample sample = new SuffixArraySample(samples, lb, ub);
-    System.out.println(sample.toString());
-    return sample;
+    return new SuffixArraySample(samples, lb, ub);
   }
   
   /**

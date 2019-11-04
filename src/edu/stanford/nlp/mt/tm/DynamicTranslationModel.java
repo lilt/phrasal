@@ -723,7 +723,6 @@ public class DynamicTranslationModel<FV> implements TranslationModel<IString,FV>
       // Generate rules for this span
       final Sequence<IString> sourceSpan = source.subsequence(i, j);
       final CoverageSet sourceCoverage = new CoverageSet(source.size());
-      System.out.println(sourceCoverage);
       sourceCoverage.set(i, j);
       List<Rule<IString>> rules = ruleCache == null ? null : ruleCache.get(sourceSpan);
       if (rules == null) {
