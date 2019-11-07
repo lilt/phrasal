@@ -1,6 +1,7 @@
 package edu.stanford.nlp.mt.decoder.util;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -226,8 +227,7 @@ public final class SyntheticRules {
     final String[] featureNames = (String[]) inferer.phraseGenerator.getFeatureNames().toArray();
     int numRules = 0;
 
-    Set<Integer>[] e2f = new TreeSet[1];
-    e2f[0] = new TreeSet(Collections.singletonList(new int[]{0}));
+    Set<Integer>[] e2f = new Set[] { Collections.singleton(0) };
     PhraseAlignment alignment = new PhraseAlignment(e2f);
     
     for(int i = 0; i < sourceSequence.size(); ++i) {
@@ -462,7 +462,7 @@ public final class SyntheticRules {
 
           Set<Integer>[] e2f = new TreeSet[tgt.size()];
           for (int k = 0; k < tgt.size() && k < src.size(); ++k) {
-            e2f[k] = new TreeSet(Collections.singletonList(new int[]{k}));
+            e2f[k] = Collections.singleton(k);
           }
           PhraseAlignment alignment = new PhraseAlignment(e2f);
 
