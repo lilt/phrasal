@@ -83,10 +83,16 @@ public class ParallelSuffixArray implements Serializable,KryoSerializable {
   public void write(Kryo kryo, Output output) {
     writeArray(srcBitext, output);
     writeArray(tgtBitext, output);
-    int[] e2fPrimitive = (int[]) org.apache.commons.lang3.ArrayUtils.toPrimitive(e2f);
-    writeArray(e2fPrimitive, output);
-    int[] f2ePrimitive = (int[]) org.apache.commons.lang3.ArrayUtils.toPrimitive(f2e);
-    writeArray(f2ePrimitive, output);
+    writeArray(new int[]{e2f.length}, output);
+    for (Set<Integer> e2fI: e2f){
+      int[] e2fPrimitive = (int[]) org.apache.commons.lang3.ArrayUtils.toPrimitive(e2fI);
+      writeArray(e2fPrimitive, output);
+    }
+    writeArray(new int[]{f2e.length}, output);
+    for (Set<Integer> f2eI: f2e){
+      int[] f2ePrimitive = (int[]) org.apache.commons.lang3.ArrayUtils.toPrimitive(f2eI);
+      writeArray(f2ePrimitive, output);
+    }
     writeArray(srcSuffixArray, output);
     writeArray(tgtSuffixArray, output);
     output.writeInt(numSentences, true);
@@ -102,17 +108,21 @@ public class ParallelSuffixArray implements Serializable,KryoSerializable {
   public void read(Kryo kryo, Input input) {
     srcBitext = readArray(input);
     tgtBitext = readArray(input);
-    Integer[] readArrayResult = org.apache.commons.lang3.ArrayUtils.toObject(readArray(input));
-    e2f = new TreeSet[readArrayResult.length];
-    for(int i =0; i<readArrayResult.length; i++){
+    int e2fLength = readArray(input)[0];
+    e2f = new TreeSet[e2fLength];
+    for(int i = 0; i < e2fLength; i++){
       e2f[i] = new TreeSet();
-      e2f[i].add(readArrayResult[i]);
+      for (int alignmentLink: readArray(input)){
+        e2f[i].add(alignmentLink);
+      }
     }
-    readArrayResult = org.apache.commons.lang3.ArrayUtils.toObject(readArray(input));
-    f2e = new TreeSet[readArrayResult.length];
-    for(int i =0; i<readArrayResult.length; i++){
+    int f2eLength = readArray(input)[0];
+    f2e = new TreeSet[f2eLength];
+    for(int i = 0; i < f2eLength; i++){
       f2e[i] = new TreeSet();
-      f2e[i].add(readArrayResult[i]);
+      for (int alignmentLink: readArray(input)){
+        f2e[i].add(alignmentLink);
+      }
     }
     srcSuffixArray = readArray(input);
     tgtSuffixArray = readArray(input);
