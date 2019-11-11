@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -98,7 +97,7 @@ public class ParallelSuffixArray implements Serializable,KryoSerializable {
   private static void writeSets(Set<Integer>[] sets, Output output) {
     output.writeInt(sets.length, true);
     for (Set<Integer> set: sets){
-      int[] setPrimitive = (int[]) ArrayUtils.toPrimitive(set);
+      int[] setPrimitive = set.stream().mapToInt(a -> a).toArray();
       writeArray(setPrimitive, output);
     }
   }
