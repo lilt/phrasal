@@ -6,7 +6,6 @@ import java.util.TreeSet;
 
 import edu.stanford.nlp.mt.util.MurmurHash2;
 import edu.stanford.nlp.mt.util.ParallelSuffixArray.SentencePair;
-import sun.reflect.generics.tree.Tree;
 
 /**
  * A rule sampled from the bitext.

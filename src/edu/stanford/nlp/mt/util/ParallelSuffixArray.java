@@ -4,13 +4,12 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import edu.stanford.nlp.util.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -83,16 +82,8 @@ public class ParallelSuffixArray implements Serializable,KryoSerializable {
   public void write(Kryo kryo, Output output) {
     writeArray(srcBitext, output);
     writeArray(tgtBitext, output);
-    writeArray(new int[]{e2f.length}, output);
-    for (Set<Integer> e2fI: e2f){
-      int[] e2fPrimitive = (int[]) org.apache.commons.lang3.ArrayUtils.toPrimitive(e2fI);
-      writeArray(e2fPrimitive, output);
-    }
-    writeArray(new int[]{f2e.length}, output);
-    for (Set<Integer> f2eI: f2e){
-      int[] f2ePrimitive = (int[]) org.apache.commons.lang3.ArrayUtils.toPrimitive(f2eI);
-      writeArray(f2ePrimitive, output);
-    }
+    writeSets(e2f, output);
+    writeSets(f2e, output);
     writeArray(srcSuffixArray, output);
     writeArray(tgtSuffixArray, output);
     output.writeInt(numSentences, true);
@@ -104,30 +95,36 @@ public class ParallelSuffixArray implements Serializable,KryoSerializable {
     output.writeInts(arr, true);
   }
 
+  private static void writeSets(Set<Integer>[] sets, Output output) {
+    output.writeInt(sets.length, true);
+    for (Set<Integer> set: sets){
+      int[] setPrimitive = (int[]) ArrayUtils.toPrimitive(set);
+      writeArray(setPrimitive, output);
+    }
+  }
+
   @Override
   public void read(Kryo kryo, Input input) {
     srcBitext = readArray(input);
     tgtBitext = readArray(input);
-    int e2fLength = readArray(input)[0];
-    e2f = new TreeSet[e2fLength];
-    for(int i = 0; i < e2fLength; i++){
-      e2f[i] = new TreeSet();
-      for (int alignmentLink: readArray(input)){
-        e2f[i].add(alignmentLink);
-      }
-    }
-    int f2eLength = readArray(input)[0];
-    f2e = new TreeSet[f2eLength];
-    for(int i = 0; i < f2eLength; i++){
-      f2e[i] = new TreeSet();
-      for (int alignmentLink: readArray(input)){
-        f2e[i].add(alignmentLink);
-      }
-    }
+    e2f = readSets(input);
+    f2e = readSets(input);
     srcSuffixArray = readArray(input);
     tgtSuffixArray = readArray(input);
     numSentences = input.readInt(true);
     vocabulary = kryo.readObject(input, Vocabulary.class);
+  }
+
+  private static Set<Integer>[] readSets(Input input) {
+    int setLength = input.readInt(true);
+    Set<Integer>[] inputSets = new TreeSet[setLength];
+    for(int i = 0; i < setLength; i++){
+      inputSets[i] = new TreeSet();
+      for (int inputSetElement: readArray(input)){
+        inputSets[i].add(inputSetElement);
+      }
+    }
+    return inputSets;
   }
   
   private static int[] readArray(Input input) {
