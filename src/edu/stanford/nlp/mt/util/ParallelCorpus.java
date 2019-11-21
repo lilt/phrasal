@@ -109,8 +109,8 @@ public class ParallelCorpus implements Iterable<AlignedSentence>, Serializable {
    * @return
    */
   private int[] stringToArray(String string) {
-    String normalizedUnicodeString = string.replaceAll("[\\s\\p{Z}]+", " ").trim();
-    return Arrays.asList(normalizedUnicodeString.split(" ")).stream().mapToInt(i -> vocabulary.add(i)).toArray();
+    String normalizedUnicodeWSString = string.replaceAll("[\\s\\p{Z}]+", " ").trim();
+    return Arrays.asList(normalizedUnicodeWSString.split(" ")).stream().mapToInt(i -> vocabulary.add(i)).toArray();
   }
   
   @SuppressWarnings("unchecked")
