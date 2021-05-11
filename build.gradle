@@ -112,7 +112,7 @@ dependencies {
   compile group: 'it.unimi.dsi', name: 'fastutil', version: '7.0.12'
   compile group: 'com.google.guava', name: 'guava', version: '19.0'
   compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.7'
-  compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
+  compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
   compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
   compile group: 'com.lmax', name: 'disruptor', version: '3.3.6'
   
