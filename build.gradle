@@ -152,7 +152,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'org.owasp:dependency-check-gradle:1.4.2'
+        classpath 'org.owasp:dependency-check-gradle:6.2.0'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
     }
 }
