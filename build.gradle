@@ -93,8 +93,10 @@ repositories {
     mavenCentral()
 }
 
-task listDeps << {
+task listDeps {
+  doLast {
     configurations.compile.each { File file -> println file.name }
+  }
 }
 
 task copyDeps(type: Copy) {
