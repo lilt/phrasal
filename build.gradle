@@ -104,6 +104,11 @@ task copyDeps(type: Copy) {
   into 'lib'
 }
 
+configurations {
+  // Prevent corenlp from pulling in an ancient version of xerces
+  all*.exclude group: 'xerces', module: 'xercesImpl'
+}
+
 dependencies {
   // TERp jars that are no longer available on the web.
   compile fileTree(dir: 'lib', include: '*.jar')
