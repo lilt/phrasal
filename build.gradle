@@ -114,7 +114,7 @@ dependencies {
   compile fileTree(dir: 'lib', include: '*.jar')
   
   // lilt/core Maven dependencies
-  compile group: 'edu.stanford.nlp', name: 'stanford-corenlp', version: '3.6.0'
+  compile group: 'edu.stanford.nlp', name: 'stanford-corenlp', version: '4.2.2'
   compile group: 'com.esotericsoftware', name: 'kryo', version: '5.1.1'
   compile group: 'it.unimi.dsi', name: 'fastutil', version: '8.5.4'
   compile group: 'com.google.guava', name: 'guava', version: '30.1.1-jre'
