@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import edu.stanford.nlp.ling.Sentence;
+import edu.stanford.nlp.ling.SentenceUtils;
 import edu.stanford.nlp.mt.util.LineIndexedCorpus;
 import edu.stanford.nlp.stats.ClassicCounter;
 import edu.stanford.nlp.stats.Counter;
@@ -108,7 +108,7 @@ public class CoverageChecker {
       for (int i = 0; i < toks.length; i++) {
          for (int j = 0; j < order && j+i < toks.length ; j++) {
             String[] ngramArr = Arrays.copyOfRange(toks, i, i+j+1);
-            String ngram = Sentence.listToString(Arrays.asList(ngramArr));
+            String ngram = SentenceUtils.listToString(Arrays.asList(ngramArr));
             if (limitSet == null || limitSet.contains(ngram)) {
                ngramCounts.incrementCount(ngram);
             }
