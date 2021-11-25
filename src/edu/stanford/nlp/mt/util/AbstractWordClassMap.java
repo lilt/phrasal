@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import edu.stanford.nlp.ling.Sentence;
+import edu.stanford.nlp.ling.SentenceUtils;
 
 /**
  * Converts words to word classes. Backed by a map.
@@ -90,7 +90,7 @@ public abstract class AbstractWordClassMap {
    */
   public IString get(IString word) {
     List<IString> classList = getList(word);
-    return numMappings == 1 ? classList.get(0) : new IString(Sentence.listToString(classList, true, DELIMITER));
+    return numMappings == 1 ? classList.get(0) : new IString(SentenceUtils.listToString(classList, true, DELIMITER));
   }
  
  /**

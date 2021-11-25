@@ -51,7 +51,7 @@ public final class CoreNLPToJSON {
   static {
     properties.put("annotators", "tokenize,ssplit,pos,lemma,ner,parse");
     properties.put("ssplit.eolonly", "true");
-    properties.put("tokenize.options", "invertible=true,ptb3Escaping=false,asciiQuotes=true,splitAssimilations=false");
+    properties.put("tokenize.options", "invertible=true,ptb3Escaping=false,splitAssimilations=false");
   }
   
   /**
