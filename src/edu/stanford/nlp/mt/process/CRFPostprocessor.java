@@ -19,7 +19,7 @@ import edu.stanford.nlp.ie.crf.CRFClassifier;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations.OriginalTextAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.ling.Sentence;
+import edu.stanford.nlp.ling.SentenceUtils;
 import edu.stanford.nlp.mt.train.SymmetricalWordAlignment;
 import edu.stanford.nlp.mt.util.IOTools;
 import edu.stanford.nlp.mt.util.IString;
@@ -229,7 +229,7 @@ public class CRFPostprocessor implements Postprocessor, Serializable {
     PrintWriter pw = new PrintWriter(IOTools.getWriterFromFile("apply.out"));
     for (List<CoreLabel> line : lines) {
       line = classifier.classify(line);
-      pw.println(Sentence.listToString(ProcessorTools.toPostProcessedSequence(line)));
+      pw.println(SentenceUtils.listToString(ProcessorTools.toPostProcessedSequence(line)));
       total += line.size();
       for (CoreLabel label : line) {
         String hypothesis = label.get(CoreAnnotations.AnswerAnnotation.class);
@@ -317,7 +317,7 @@ public class CRFPostprocessor implements Postprocessor, Serializable {
                   List<CoreLabel> labeledSeq = ProcessorTools.toCharacterSequence(input);
                   labeledSeq = postProcessor.classifier.classify(labeledSeq);
                   List<CoreLabel> tokenSeq = ProcessorTools.toPostProcessedSequence(labeledSeq);
-                  return Sentence.listToString(tokenSeq);
+                  return SentenceUtils.listToString(tokenSeq);
                 }
                 @Override
                 public ThreadsafeProcessor<String, String> newInstance() {

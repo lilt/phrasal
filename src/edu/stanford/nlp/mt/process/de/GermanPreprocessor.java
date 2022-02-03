@@ -26,7 +26,7 @@ public class GermanPreprocessor extends CoreNLPPreprocessor {
   
   public GermanPreprocessor(boolean cased, MosesCompoundSplitter compoundSplitter) {
     super(PTBTokenizer.coreLabelFactory(), compoundSplitter);
-    tf.setOptions("invertible=true,ptb3Escaping=false,asciiQuotes=true,untokenizable=allKeep");
+    tf.setOptions("invertible=true,ptb3Escaping=false,untokenizable=allKeep,quotes=ascii");
     this.cased = cased;
   }
 
