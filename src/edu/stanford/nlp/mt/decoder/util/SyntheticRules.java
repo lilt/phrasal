@@ -378,7 +378,7 @@ public final class SyntheticRules {
           cov.set(r.fi, r.fj);
           Set<Integer>[] e2f = new TreeSet[tgt.size()];
           for (int eIdx = r.ei; eIdx < r.ej; ++eIdx) {
-            e2f[eIdx - r.ei] = sym.e2f(eIdx).stream().mapToInt(a -> a - r.fi).boxed().collect(Collectors.toCollection(() -> new TreeSet()));
+            e2f[eIdx - r.ei] = sym.e2f(eIdx).stream().mapToInt(a -> a - r.fi).boxed().collect(Collectors.toCollection(() -> new TreeSet<>()));
           }
 
           PhraseAlignment alignment = new PhraseAlignment(e2f);
