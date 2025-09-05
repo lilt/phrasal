@@ -194,7 +194,7 @@ public class CombinedTranslationModel<TK,FV> implements TranslationModel<TK,FV> 
     
     
     final Map<CoverageSet, List<List<ConcreteRule<TK,FV>>>> ruleLists = 
-        new HashMap<>(source.size() * source.size());
+        new HashMap<>();
 
     int modelNumber = 0;
     for (TranslationModel<TK,FV> model : translationModels) {

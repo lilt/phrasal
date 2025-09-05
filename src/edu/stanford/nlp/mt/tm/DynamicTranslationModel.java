@@ -582,7 +582,7 @@ public class DynamicTranslationModel<FV> implements TranslationModel<IString,FV>
       Scorer<FV> scorer) {
     if (source == null || source.size() == 0) return Collections.emptyList();
     
-    final List<ConcreteRule<IString,FV>> concreteRules = new ArrayList<>(source.size() * source.size() * 100);
+    final List<ConcreteRule<IString,FV>> concreteRules = new ArrayList<>();
     
     final int[] sourceArray = toTMArray(source);
     

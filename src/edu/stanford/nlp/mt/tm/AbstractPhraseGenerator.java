@@ -42,7 +42,7 @@ abstract public class AbstractPhraseGenerator<TK, FV> implements
       Sequence<TK> source, InputProperties sourceInputProperties, int sourceInputId, 
       Scorer<FV> scorer) {
     if (source == null || source.size() == 0) return new ArrayList<>(0);
-    List<ConcreteRule<TK,FV>> concreteRules = new ArrayList<>(source.size() * source.size() * 100);
+    List<ConcreteRule<TK,FV>> concreteRules = new ArrayList<>();
     int longestSourcePhrase = this.maxLengthSource();
     if (longestSourcePhrase < 0)
       longestSourcePhrase = -longestSourcePhrase;
