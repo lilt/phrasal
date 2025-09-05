@@ -29,7 +29,7 @@ public class NgramOverlap {
   public static void main(String[] args) {
     if (args.length != 3) {
       System.err.printf("Usage: java %s order file1 file2%n", NgramOverlap.class.getName());
-      System.exit(-1);
+      throw new IllegalArgumentException("Invalid number of arguments");
     }
 
     final int maxOrder = Integer.parseInt(args[0]);

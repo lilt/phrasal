@@ -1087,14 +1087,14 @@ public final class OnlineTuner {
     // Check option combinations
     if (prefixTuningFile != null && refStr != null) {
       System.err.println("ERROR: Only one reference allowed for prefix tuning.");
-      System.exit(-1);
+      throw new IllegalArgumentException("Only one reference allowed for prefix tuning");
     }
     
     // Parse arguments
     String[] parsedArgs = opts.getProperty("","").split("\\s+");
     if (parsedArgs.length != 4) {
       System.err.println(usage());
-      System.exit(-1);
+      throw new IllegalArgumentException("Invalid number of arguments");
     }
     String srcFile = parsedArgs[0];
     String tgtFile = parsedArgs[1];

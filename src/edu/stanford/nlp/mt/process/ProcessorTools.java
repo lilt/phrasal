@@ -2,6 +2,8 @@ package edu.stanford.nlp.mt.process;
 
 import java.io.PrintWriter;
 import java.io.Reader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -36,6 +38,8 @@ import edu.stanford.nlp.sequences.SeqClassifierFlags;
  *
  */
 public final class ProcessorTools {
+  
+  private static final Logger logger = LogManager.getLogger(ProcessorTools.class);
 
   // TODO: Re-enable the Replace class
 //  public static enum Operation {Delete, Replace, ToUpper, InsertBefore, InsertAfter, None, Whitespace};
@@ -207,12 +211,14 @@ public final class ProcessorTools {
       } catch (Exception e) {
         // The label is lexicalized, so it clearly isn't None,
         // which is the label we're seeking.
+        logger.debug("Unable to parse operation enum from label '{}': {}", pLabel, e.getMessage());
       }
       try {
         qOperation = qLabel == null ? null : Operation.valueOf(qLabel);
       } catch (Exception e) {
         // The label is lexicalized, so it clearly isn't None,
         // which is the label we're seeking.
+        logger.debug("Unable to parse operation enum from label '{}': {}", qLabel, e.getMessage());
       }
       
       if (pOperation != null && pOperation == Operation.None) {

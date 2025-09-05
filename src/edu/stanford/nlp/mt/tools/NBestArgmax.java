@@ -36,7 +36,7 @@ public class NBestArgmax {
 
     if (args.length != 2 && args.length != 3) {
       usage();
-      System.exit(-1);
+      throw new IllegalArgumentException("Invalid number of arguments");
     }
 
     String nbestFilename = args[0];

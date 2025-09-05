@@ -21,7 +21,7 @@ public final class DynamicRuleQuery {
   public static void main(String[] args) {
     if (args.length != 1) {
       System.out.printf("Usage: java %s tm_name%n", DynamicRuleQuery.class.getName());
-      System.exit(-1);
+      throw new IllegalArgumentException("Invalid number of arguments");
     }
 
     final String fileName = args[0];

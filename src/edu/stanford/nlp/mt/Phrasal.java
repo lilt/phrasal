@@ -1087,7 +1087,7 @@ public class Phrasal {
       if(input.ksr_nbest_size > 0 && input.reference != null) {
         if(previousPrefixSize > 0) {
           System.err.println("ERROR: KSR can not be combined with forced or prefix decoding.");
-          System.exit(-1);
+          throw new IllegalArgumentException("KSR cannot be combined with forced or prefix decoding");
         }
         InputProperties ksrProps = new InputProperties(input.inputProps);
         ksrProps.put(InputProperty.TargetPrefix, true);
@@ -1266,7 +1266,7 @@ public class Phrasal {
         String refLine = refReader.readLine();
         if(refLine == null) {
           System.err.println("ERROR: reference file is too short");
-          System.exit(-1);
+          throw new IllegalStateException("Reference file is too short for input");
         }
         ref = IStrings.tokenize(refLine);
       }
@@ -1610,13 +1610,13 @@ public class Phrasal {
     options.remove("");
     if ((options.size() == 0 && configFile == null) || options.containsKey("help") || options.containsKey("h")) {
       System.err.println(usage());
-      System.exit(-1);
+      throw new IllegalArgumentException("Invalid command line arguments. Use --help for usage information.");
     }
 
     // by default, exit on uncaught exception
     Thread.setDefaultUncaughtExceptionHandler((t, ex) -> {
       logger.fatal("Uncaught top-level exception", ex);
-      System.exit(-1);
+      throw new RuntimeException("Fatal uncaught exception", ex);
     });
 
     final Map<String, List<String>> configuration = getConfigurationFrom(configFile, options);

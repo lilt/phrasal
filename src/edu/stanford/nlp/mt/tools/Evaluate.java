@@ -56,7 +56,7 @@ public class Evaluate {
   public static void main(String[] args) throws IOException {
     if (args.length < 2) {
       System.err.print(usage());
-      System.exit(-1);
+      throw new IllegalArgumentException("Insufficient number of arguments");
     }
 
     Properties options = StringUtils.argsToProperties(args, argDefs());

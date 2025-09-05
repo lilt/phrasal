@@ -31,7 +31,7 @@ public class PhrasalWeightsToMoses {
   public static void main(String[] args) throws IOException {
     if (args.length != 1) {
       System.err.printf("Usage: java %s file_binwts%n", PhrasalWeightsToMoses.class.getName());
-      System.exit(-1);
+      throw new IllegalArgumentException("Invalid number of arguments");
     }
     Counter<String> weightVector = IOTools.readWeights(args[0]);
     System.out.println("[weight]");

@@ -31,7 +31,7 @@ public final class LanguageModelPerplexity {
     if (args.length != 2) {
       System.err
           .printf("Usage: java %s type:path input_file%n", LanguageModelPerplexity.class.getName());
-      System.exit(-1);
+      throw new IllegalArgumentException("Invalid number of arguments");
     }
 
     String model = args[0];

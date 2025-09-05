@@ -29,7 +29,7 @@ public class BLEUSorter {
     if (args.length != 7) {
       System.err
           .println("Usage:\n\tjava BLEUSorter (ref prefix) (hyp 1) (hyp 2) (info) (minDelta) (minLength) (maxLength) (info)\n");
-      System.exit(-1);
+      throw new IllegalArgumentException("Invalid number of arguments");
     }
 
     List<List<Sequence<IString>>> referencesList = MetricUtils

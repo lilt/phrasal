@@ -222,7 +222,7 @@ public class FlatNBestList implements NBestListContainer<IString, String> {
     for(int id=0; id<nbestLists.size(); id++){
       if (nbestLists.get(id) == null){
         System.err.printf("! null in nbest list\n");
-        System.exit(1);
+        throw new IllegalStateException("Null element found in nbest list");
       }
     }
 
@@ -261,7 +261,7 @@ public class FlatNBestList implements NBestListContainer<IString, String> {
   static public void main(String[] args) throws IOException {
     if (args.length != 1) {
       System.err.printf("Usage:\n\tjava ...(flat nbest list)\n");
-      System.exit(-1);
+      throw new IllegalArgumentException("Invalid number of arguments");
     }
 
     String nbestListFilename = args[0];

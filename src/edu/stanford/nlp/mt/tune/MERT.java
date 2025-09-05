@@ -709,7 +709,7 @@ public class MERT extends Thread {
             .printf(
                 "Error incompatible local and cummulative n-best lists, sizes %d != %d\n",
                 localNbest.nbestLists().size(), nbest.nbestLists().size());
-        System.exit(-1);
+        throw new IllegalStateException(String.format("Incompatible n-best lists: local size %d != cumulative size %d", localNbest.nbestLists().size(), nbest.nbestLists().size()));
       }
       {
         int lI = -1;
@@ -1044,7 +1044,7 @@ public class MERT extends Thread {
       System.err.println("-T: filter strictly unreachable.");
       System.err.println("-S: tune using sentence-level BLEU (smoothed).");
       System.err.println("-N: apply NIST tokenization to hypotheses.");
-      System.exit(-1);
+      throw new IllegalArgumentException("Invalid command line arguments");
     }
 
     SEED = seedStr.hashCode();

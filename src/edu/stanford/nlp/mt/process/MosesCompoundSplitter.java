@@ -50,7 +50,7 @@ public class MosesCompoundSplitter {
     catch (IOException e) {
       System.err.println("ERROR: could not load model from file " + modelFileName);
       e.printStackTrace();
-      System.exit(-1);
+      throw new RuntimeException("Failed to load model from file " + modelFileName, e);
     }
   }
   
@@ -261,7 +261,7 @@ public class MosesCompoundSplitter {
   private static void usage() {
     System.err.println("Usage:");
     System.err.println("java " + MosesCompoundSplitter.class.getName() + " [useUnigramProbs(true/false)] modelFile < inputFile > outputFile ");
-    System.exit(0);
+    throw new IllegalArgumentException("Invalid arguments");
   }
   
 

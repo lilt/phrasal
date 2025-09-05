@@ -45,7 +45,7 @@ public class BasicNBestList implements Iterator<List<BasicNBestEntry>>, Iterable
     // Silly java requires exception declaration, but does not allow overrides to throw more
     } catch (IOException e) {
       e.printStackTrace();
-      System.exit(1);
+      throw new RuntimeException("IO error while processing NBest list", e);
     }
     return list;
   }

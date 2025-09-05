@@ -53,7 +53,7 @@ public class GermanPostprocessor extends CRFPostprocessor {
     Properties options = StringUtils.argsToProperties(args, optionArgDefs());
     if (options.containsKey("help") || args.length == 0) {
       System.err.println(usage(GermanPostprocessor.class.getName()));
-      System.exit(-1);
+      throw new IllegalArgumentException("Invalid arguments");
     }
 
     int nThreads = PropertiesUtils.getInt(options, "nthreads", 1);

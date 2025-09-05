@@ -15,7 +15,7 @@ public class OverrideBinwts {
   public static void main(String[] args) {
     if(args.length != 3) {
       usage();
-      System.exit(-1);
+      throw new IllegalArgumentException("Invalid number of arguments");
     }
       
     String input = args[0];
@@ -37,7 +37,7 @@ public class OverrideBinwts {
     }
     catch (IOException e) {
       e.printStackTrace();
-      System.exit(-1);
+      throw new RuntimeException("IO error while processing weights", e);
     }
 
     System.err.println("writing weights to " + output);
