@@ -20,7 +20,7 @@ nexusUsername=[username]
 nexusPassword=[password]
 ```
 * Bump the `version` number in `build.gradle`
-* Run `./gradlew build uploadArchives`.  The artifact will be uploaded as `phrasal` inside the
+* Run `./gradlew build publish`.  The artifact will be uploaded as `phrasal` inside the
   group `com.lilt`, with the specified version.
 
 ### Linux / Mac OS X
